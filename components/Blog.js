@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 const userData = [
   {
@@ -6,7 +7,7 @@ const userData = [
     content: "My future to NYC!",
     category: "personal life",
     date: "June 8, 2023",
-    link: "blog-personal-nyc", // Add the link for the blog page
+    link: "/nyc-blog-1", // Add the link for the blog page
   },
   {
     title: "Apple's Announcement",
@@ -115,9 +116,8 @@ export default function Blog() {
                 <div className="text-xs text-gray-500">{tile.date}</div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 transition-transform ${
-                    selectedTile === index ? "transform rotate-180" : ""
-                  }`}
+                  className={`h-5 w-5 transition-transform ${selectedTile === index ? "transform rotate-180" : ""
+                    }`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -128,14 +128,10 @@ export default function Blog() {
                 <>
                   <div className="mt-4">{tile.content}</div>
                   {tile.link && (
-                    <a
-                      href={tile.link.startsWith("http") ? tile.link : `/${tile.link}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-blue-500 underline"
-                    >
-                      Read More
-                    </a>
+                    <Link href={tile.link.startsWith("http") ? tile.link : `/${tile.link}`}>
+                      <span className="text-sm text-blue-500 underline">Read More</span>
+                    </Link>
+
                   )}
                 </>
               )}

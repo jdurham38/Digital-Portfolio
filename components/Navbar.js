@@ -10,11 +10,21 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpenAPI, setIsDropdownOpenAPI] = useState(false);
   const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
+  const [isAPISDropdownOpen, setIsAPISDropdownOpen] = useState(false);
 
   const toggleProjectsDropdown = () => {
     setIsProjectsDropdownOpen(!isProjectsDropdownOpen);
   };
+
+
+  const toggleAPIDropdown = () => {
+    setIsDropdownOpenAPI(!isDropdownOpenAPI);
+  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -163,15 +173,47 @@ export default function Navbar() {
           </Link>
 
           {/* Experience */}
-          <Link
-            href="/myapi"
-            className={`text-base  ${router.asPath === "/myapi"
-              ? "text-gray-800 font-bold dark:text-[#FFFCF2]"
-              : "text-[#3C312A] dark:text-[#FFFCF2] font-normal "
-              }`}
-          >
-            API
-          </Link>
+          <div className="relative inline-block">
+
+              All API's
+              <button onClick={toggleAPIDropdown} className="ml-1 focus:outline-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-arrow-down inline-block h-3 w-3"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                  />
+                </svg>
+              </button>
+            
+            {isDropdownOpenAPI && (
+              <div className="absolute left-0 mt-1 p-2 bg-white border border-gray-300 shadow-lg rounded-md">
+                {/* Dropdown content */}
+                <Link href="/apod-api" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    APOD
+                  </span>
+                </Link>
+                <Link href="/myapi" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    Reminder's
+                  </span>
+                </Link>
+                <Link href="/unsplash" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    Unsplash
+                  </span>
+                </Link>
+                                
+              </div>
+            )}
+          </div>
 
 
           {/* Contact */}
@@ -362,11 +404,50 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <Link href="/myapi" passHref>
-            <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
-              API
-            </span>
-          </Link>
+          <div className="relative inline-block">
+            <button
+              onClick={toggleAPIDropdown}
+              className="text-base text-[#3C312A] dark:text-[#FFFCF2] font-normal outline-none transition-colors duration-200 hover:text-[#0070F3] dark:hover:text-[#0070F3] focus:text-[#0070F3] focus:outline-none px-2 py-1" // Adjusted padding here
+            >
+              All API's
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-arrow-down inline-block h-3 w-3"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                />
+              </svg>
+            </button>
+            {isDropdownOpenAPI && (
+              <div className="absolute z-10 mt-2 p-2 bg-white dark:bg-[#0D1117] bg-opacity-90 shadow-md rounded-md right-0">
+                {/* Dropdown content */}
+                <Link href="/apod-api" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    APOD
+                  </span>
+                </Link>
+                <Link href="/myapi" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    Reminder
+                  </span>
+                </Link>
+                <Link href="/unsplash" passHref>
+                  <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
+                    Unsplash
+                  </span>
+                </Link>
+                
+                {/* Add more project links if needed */}
+              </div>
+              
+            )}
+          </div>
           <Link href="/contact" passHref>
             <span className="block px-2 py-1 text-base font-normal text-[#3C312A] dark:text-[#FFFCF2] hover:text-[#0070F3] dark:hover:text-[#0070F3]">
               Contact
